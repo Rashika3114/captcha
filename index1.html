@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captcha</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            margin: 10%;
+            background: wheat;
+        }
+
+        #container {
+            width: 300px;
+            height: 200px;
+            background-color: burlywood;
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+
+        #container input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+
+        #container button {
+
+            padding: 10px;
+            background-color: yellowgreen;
+            color: black;
+            margin: 10px;
+            border-radius: 5px;
+            border: grey 1px solid;
+            outline: none;
+
+
+        }
+        #captcha{
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h3> Captcha</h3>
+        <div id="captcha"></div>
+        <input type="text" id="userinput" placeholder=" Enter the valid captcha"><br>
+        <button id="submit">Verify</button>
+
+    </div>
+    <script>
+        const generate = () => {
+            const character = "ABCDEFGHIJKLMNOPQRSTUVWXYYZ0123456789";
+            let captcha = "";
+            for (let i = 0; i < 6; i++) {
+                captcha+= character.charAt(Math.floor(Math.random() * character.length));
+            }
+            return captcha;
+        }
+        const display = () => {
+            let captcha = generate();
+            document.getElementById("captcha").innerText = captcha;
+            return captcha;
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            let currentcaptcha = display();
+
+            document.getElementById("submit").addEventListener('click', () => {
+                const input = document.getElementById("userinput").value
+
+                if (currentcaptcha == input) {
+                    alert("CAPTCHA verified succesfully")
+                }
+                else {
+                    alert("CAPTCHA verification Failed. Please try again")
+                }
+                currentcaptcha = display()
+                document.getElementById("userinput").value = '';
+            })
+
+            }
+            )
+    </script>
+
+</body>
+
+</html>
